@@ -136,101 +136,19 @@ export default function Vote() {
           <CardSection>
             <AutoColumn gap="md">
               <RowBetween>
-                <TYPE.white fontWeight={600}>Uniswap Governance</TYPE.white>
+                <TYPE.white fontWeight={600}>Falcon Governance</TYPE.white>
               </RowBetween>
               <RowBetween>
                 <TYPE.white fontSize={14}>
-                  UNI tokens represent voting shares in Uniswap governance. You can vote on each proposal yourself or
-                  delegate your votes to a third party.
+                  Coming Soon....
                 </TYPE.white>
               </RowBetween>
-              <ExternalLink
-                style={{ color: 'white', textDecoration: 'underline' }}
-                href="https://uniswap.org/blog/uni"
-                target="_blank"
-              >
-                <TYPE.white fontSize={14}>Read more about Uniswap governance</TYPE.white>
-              </ExternalLink>
             </AutoColumn>
           </CardSection>
           <CardBGImage />
           <CardNoise />
         </VoteCard>
       </TopSection>
-      <TopSection gap="2px">
-        <WrapSmall>
-          <TYPE.mediumHeader style={{ margin: '0.5rem 0.5rem 0.5rem 0', flexShrink: 0 }}>Proposals</TYPE.mediumHeader>
-          {(!allProposals || allProposals.length === 0) && !availableVotes && <Loader />}
-          {showUnlockVoting ? (
-            <ButtonPrimary
-              style={{ width: 'fit-content' }}
-              padding="8px"
-              borderRadius="8px"
-              onClick={toggleDelegateModal}
-            >
-              Unlock Voting
-            </ButtonPrimary>
-          ) : availableVotes && JSBI.notEqual(JSBI.BigInt(0), availableVotes?.raw) ? (
-            <TYPE.body fontWeight={500} mr="6px">
-              <FormattedCurrencyAmount currencyAmount={availableVotes} /> Votes
-            </TYPE.body>
-          ) : uniBalance &&
-            userDelegatee &&
-            userDelegatee !== ZERO_ADDRESS &&
-            JSBI.notEqual(JSBI.BigInt(0), uniBalance?.raw) ? (
-            <TYPE.body fontWeight={500} mr="6px">
-              <FormattedCurrencyAmount currencyAmount={uniBalance} /> Votes
-            </TYPE.body>
-          ) : (
-            ''
-          )}
-        </WrapSmall>
-        {!showUnlockVoting && (
-          <RowBetween>
-            <div />
-            {userDelegatee && userDelegatee !== ZERO_ADDRESS ? (
-              <RowFixed>
-                <TYPE.body fontWeight={500} mr="4px">
-                  Delegated to:
-                </TYPE.body>
-                <AddressButton>
-                  <StyledExternalLink
-                    href={getEtherscanLink(ChainId.MAINNET, userDelegatee, 'address')}
-                    style={{ margin: '0 4px' }}
-                  >
-                    {userDelegatee === account ? 'Self' : shortenAddress(userDelegatee)}
-                  </StyledExternalLink>
-                  <TextButton onClick={toggleDelegateModal} style={{ marginLeft: '4px' }}>
-                    (edit)
-                  </TextButton>
-                </AddressButton>
-              </RowFixed>
-            ) : (
-              ''
-            )}
-          </RowBetween>
-        )}
-        {allProposals?.length === 0 && (
-          <EmptyProposals>
-            <TYPE.body style={{ marginBottom: '8px' }}>No proposals found.</TYPE.body>
-            <TYPE.subHeader>
-              <i>Proposals submitted by community members will appear here.</i>
-            </TYPE.subHeader>
-          </EmptyProposals>
-        )}
-        {allProposals?.map((p: ProposalData, i) => {
-          return (
-            <Proposal as={Link} to={'/vote/' + p.id} key={i}>
-              <ProposalNumber>{p.id}</ProposalNumber>
-              <ProposalTitle>{p.title}</ProposalTitle>
-              <ProposalStatus status={p.status}>{p.status}</ProposalStatus>
-            </Proposal>
-          )
-        })}
-      </TopSection>
-      <TYPE.subHeader color="text3">
-        A minimum threshhold of 1% of the total UNI supply is required to submit proposals
-      </TYPE.subHeader>
     </PageWrapper>
   )
 }
